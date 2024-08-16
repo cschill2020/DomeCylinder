@@ -461,13 +461,13 @@ namespace ravecylinder {
 #if defined(ARDUINO_ARCH_ESP32S2) || defined(ARDUINO_ARCH_ESP32C3)
 #define MAX_LED_MEMORY 32000
 #else
-#define MAX_LED_MEMORY 64000
+#define MAX_LED_MEMORY 128000
 #endif
 #endif
 #endif
 
 #ifndef MAX_LEDS_PER_BUS
-#define MAX_LEDS_PER_BUS 2048 // may not be enough for fast LEDs (i.e. APA102)
+#define MAX_LEDS_PER_BUS 30000 // may not be enough for fast LEDs (i.e. APA102)
 #endif
 
 // string temp buffer (now stored in stack locally)

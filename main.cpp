@@ -89,7 +89,7 @@ int main() {
   // http://www.3waylabs.com/ddp/
   // UDPClient client;
   if (enableUDP) {
-    udpClient.OpenConnection("ravecylinder.local", DDP_PORT);
+    udpClient.OpenConnection("ravecylinder64.local", DDP_PORT);
   }
   
   // Initiate strip

@@ -6686,6 +6686,41 @@ uint16_t mode_2Dcrazybees(void) {
 static const char _data_FX_MODE_2DCRAZYBEES[] = "Crazy Bees@!,Blur;;;2";
 
 /////////////////////////
+//     2D Plasma   //
+/////////////////////////
+//// Plasma Effects by Eduardo
+uint16_t mode_2Dplasma(void) {
+  if (!strip().isMatrix)
+    return mode_static(); // not a 2D set-up
+
+  const uint16_t cols = SEGMENT.virtualWidth();
+  const uint16_t rows = SEGMENT.virtualHeight();
+
+  uint8_t origPosX = 0;
+  uint8_t origPosY = 0;
+  uint8_t origAimX = 0;
+  uint8_t origAimY = 0;
+
+  float time = SEGENV.call * (1.0f / 60.0f);
+  float t1 = std::cos(time*0.71f);
+  float t2 = std::cos(time*0.83f);
+  float t3 = std::cos(time*1.01f);
+    constexpr float scale_x = 4;
+    constexpr float scale_y = 4;
+      
+  for (int y=0; y < rows; y++) {
+    for (int x=0; x < cols; x++) {
+    float r = std::cos(x * scale_x + t1 * 2 + std::cos(y * scale_y + t2 * 4)) * 0.5f + 0.5f;
+    float g = std::cos(y * scale_y + t1 * 4 + std::cos(x * scale_x + t3)) * 0.5f + 0.5f;
+    float b = std::cos(y * scale_y + t2 * 4 + std::cos(x * scale_x + g * 0.25f + t1)) * 0.5f + 0.5f;
+    SEGMENT.setPixelColorXY(x, y, CRGB(r*255, g*255, b*255));
+    }
+  }
+  return 1000/60;
+}
+static const char _data_FX_MODE_2DPLASMA[] = "2DPlasma@!,Blur;;;2";
+
+/////////////////////////
 //     2D Ghost Rider  //
 /////////////////////////
 //// Ghost Rider by stepko (c)2021
@@ -9020,6 +9055,7 @@ void WS2812FX::setupEffectData() {
             _data_FX_MODE_2DWAVINGCELL);
 
   addEffect(FX_MODE_2DAKEMI, &mode_2DAkemi, _data_FX_MODE_2DAKEMI); // audio
+  addEffect(FX_MODE_2DPLASMA, &mode_2Dplasma, _data_FX_MODE_2DPLASMA); // audio
 #endif // WLED_DISABLE_2D
 }
 

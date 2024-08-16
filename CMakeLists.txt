@@ -50,9 +50,6 @@ set(CPACK_PROJECT_NAME ${PROJECT_NAME})
 set(CPACK_PROJECT_VERSION ${PROJECT_VERSION})
 include(CPack)
 
-#add_compile_options(-fsanitize=address)
-#add_link_options(-fsanitize=address)
-
 target_link_libraries(RaveCylinder
     PRIVATE
     PkgConfig::PC_HTTPSERVER
