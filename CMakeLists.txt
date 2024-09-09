@@ -35,6 +35,7 @@ SET(SOURCES
     WLED.cpp WLED.h 
     WLED_set.cpp
     WLED_server.cpp
+    WLED_util.cpp
     WLED_xml.cpp
     main.cpp
    )

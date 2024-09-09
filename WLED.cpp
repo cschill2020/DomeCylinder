@@ -25,6 +25,10 @@ byte colSec[4] = { 0, 0, 0, 0 };
 // Only added to limit js changes.
 bool notifyDirect = false;
 
+json doc;
+volatile uint8_t jsonBufferLock = 0;
+json* fileDoc = nullptr;
+
 // color
 byte lastRandomIndex = 0;
 bool gammaCorrectCol = true;
@@ -57,10 +61,10 @@ byte briNlT = 0;                // current nightlight brightness
 byte colNlT[4] = {0, 0, 0, 0}; // current nightlight color
 
 // brightness
-byte briS = 128;
+byte briS = 255;
 byte bri = briS;
 byte briT = 0;
-byte briLast = 128;
+byte briLast = 255;
 byte briMultiplier = 100;
 byte briOld = 0;
 

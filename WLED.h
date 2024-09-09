@@ -47,7 +47,7 @@ typedef uint8_t byte;
 constexpr float HALF_PI = 3.14159f / 2.0f;
 constexpr bool useAMPM = false;
 constexpr bool cctFromRgb = false;
-constexpr bool enableUDP = true;
+constexpr bool enableUDP = false;
 extern uint16_t ledMaps;
 
 extern bool stateChanged;
@@ -90,6 +90,14 @@ bool deserializeState(json &root, byte callMode = CALL_MODE_DIRECT_CHANGE,
 
 // Sync settings, only used to limit js changes
 extern bool notifyDirect;                       // send notification if change via UI or HTTP API
+
+// server blocking settings
+bool requestJSONBufferLock(uint8_t module=255);
+void releaseJSONBufferLock();
+extern json doc;
+extern volatile uint8_t jsonBufferLock;
+extern json* fileDoc;
+
 
 // color
 extern byte lastRandomIndex;

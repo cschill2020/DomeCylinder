@@ -1158,12 +1158,15 @@ postJson(const httpserver::http_request &request) {
   bool verboseResponse = false;
   bool isConfig = false;
 
-  // if (!requestJSONBufferLock(14)) return;
+  if (!requestJSONBufferLock(14)) return std::shared_ptr<httpserver::http_response>(
+        new httpserver::string_response("{\"error\":9}", 400,
+                                        "application/json"));
   // DeserializationError error = deserializeJson(doc,
   // (uint8_t*)(request->_tempObject)); JsonObject root = doc.as<JsonObject>();
-  json root = json::parse(request.get_content());
+  doc = json::parse(request.get_content());
+  json root = doc;
   if (root.is_null()) {
-    // releaseJSONBufferLock();
+    releaseJSONBufferLock();
     return std::shared_ptr<httpserver::http_response>(
         new httpserver::string_response("{\"error\":9}", 400,
                                         "application/json"));
@@ -1191,8 +1194,8 @@ postJson(const httpserver::http_request &request) {
     verboseResponse =
         deserializeConfig(root); // use verboseResponse to determine whether cfg
                                  // change should be saved immediately
-  }
-  releaseJSONBufferLock();*/
+  }*/
+  releaseJSONBufferLock();
   if (verboseResponse) {
     if (!isConfig) {
       // lastInterfaceUpdate = millis(); // prevent WS update until cooldown
